@@ -1,9 +1,15 @@
-import { Logo } from "../../components/Logo";
+import { Header } from "../../components/Header";
+import { SideBar } from "../../components/SideBar";
+import { Video } from "../../components/Video";
 
 export function Event(){
     return(
-        <header className="w-full py-5 flex items-center justify-center bg-gray-700 border-b border-gray-600">
-            <Logo />
-        </header>
+        <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex flex-1">
+                <Video />
+                <SideBar />
+            </main>
+        </div>        
     )
 }
