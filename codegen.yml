@@ -1,0 +1,17 @@
+overwrite: true
+schema: https://api-sa-east-1.graphcms.com/v2/cl4opoh6p0rgc01xk660cep6p/master
+
+documents: "src/**/*.graphql"
+generates:
+  src/generated/graphql.tsx:
+    - typescript
+  src/generated/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.tsx
+      baseTypesPath: graphql.tsx
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo      
+    
+

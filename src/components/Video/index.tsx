@@ -1,36 +1,8 @@
 import { DefaultUi, Player, Youtube } from "@vime/react";
-import { gql, useQuery } from "@apollo/client";
 import { CaretRight, DiscordLogo, FileArrowDown, Lightning } from "phosphor-react";
 
 import '@vime/core/themes/Default.css';
-
-const GET_LESSON_BY_SLUG_QUERY = gql`
-    query GetLessonBySlug ($slug: String) {
-        lesson(where: {slug: $slug}) {
-            title
-            videoId
-            description
-            teacher {
-                bio
-                avatarURL
-                name
-            }
-        }
-    }
-`
-
-interface GetLessonBySlugResponse {
-    lesson: {
-        title: string;
-        videoId: string;
-        description: string;
-        teacher: {
-            bio: string;
-            avatarURL: string;
-            name: string;
-        }
-    }
-}
+import { useGetLessonBySlugQuery } from "../Lesson/queries.generated";
 
 interface VideoProps {
     lessonSlug: string;
@@ -38,13 +10,13 @@ interface VideoProps {
 
 export function Video(props: VideoProps){
 
-    const { data } = useQuery<GetLessonBySlugResponse>(GET_LESSON_BY_SLUG_QUERY,{
+    const { data } = useGetLessonBySlugQuery({
         variables: {
             slug: props.lessonSlug,
         }
     })
 
-    if(!data) {
+    if(!data || !data.lesson) {
         return(
             <div className="flex-1">
                 <p>Carregando... </p>
@@ -72,7 +44,8 @@ export function Video(props: VideoProps){
                         <p className="mt-4 text-gray-200 leading-relaxed">
                             {data?.lesson.description}
                         </p>
-                        <div className="flex items-center gap-4 mt-6">
+                        {data.lesson.teacher && (
+                            <div className="flex items-center gap-4 mt-6">
                             <img
                                 className="h-16 w-16 rounded-full border border-blue-500" 
                                 src={data?.lesson.teacher.avatarURL} 
@@ -87,6 +60,7 @@ export function Video(props: VideoProps){
                                 </span>
                             </div>
                         </div>
+                        )}
                     </div>
 
                     <div className="flex flex-col gap-4">
