@@ -6,7 +6,7 @@ const defaultOptions = {} as const;
 export type GetLessonsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetLessonsQuery = { __typename?: 'Query', lessons: Array<{ __typename?: 'Lesson', id: string, lessonType: Types.LessonType, availableAt?: any | null, title: string, slug?: string | null }> };
+export type GetLessonsQuery = { __typename?: 'Query', lessons: Array<{ __typename?: 'Lesson', id: string, lessonType: Types.LessonType, availableAt?: any | null, title: string, slug: string }> };
 
 export type GetLessonBySlugQueryVariables = Types.Exact<{
   slug?: Types.InputMaybe<Types.Scalars['String']>;
