@@ -1,7 +1,7 @@
 import { DefaultUi, Player, Youtube } from "@vime/react";
 import { CaretRight, DiscordLogo, FileArrowDown, Lightning } from "phosphor-react";
 
-import '@vime/core/themes/Default.css';
+import '@vime/core/themes/default.css';
 import { useGetLessonBySlugQuery } from "../Lesson/queries.generated";
 
 interface VideoProps {
