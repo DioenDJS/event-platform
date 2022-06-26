@@ -1,5 +1,4 @@
 import { DefaultUi, Player, Youtube } from "@vime/react";
-import { gql, useQuery } from "@apollo/client";
 import { CaretRight, DiscordLogo, FileArrowDown, Lightning } from "phosphor-react";
 
 import '@vime/core/themes/Default.css';
@@ -17,7 +16,7 @@ export function Video(props: VideoProps){
         }
     })
 
-    if(!data) {
+    if(!data || !data.lesson) {
         return(
             <div className="flex-1">
                 <p>Carregando... </p>
@@ -45,7 +44,8 @@ export function Video(props: VideoProps){
                         <p className="mt-4 text-gray-200 leading-relaxed">
                             {data?.lesson.description}
                         </p>
-                        <div className="flex items-center gap-4 mt-6">
+                        {data.lesson.teacher && (
+                            <div className="flex items-center gap-4 mt-6">
                             <img
                                 className="h-16 w-16 rounded-full border border-blue-500" 
                                 src={data?.lesson.teacher.avatarURL} 
@@ -60,6 +60,7 @@ export function Video(props: VideoProps){
                                 </span>
                             </div>
                         </div>
+                        )}
                     </div>
 
                     <div className="flex flex-col gap-4">
